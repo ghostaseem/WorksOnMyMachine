@@ -18,3 +18,19 @@ class SocketManager:
             await connection[0].send_json(data)
 
 manager = SocketManager()
+
+#  diff between clients
+class ConnectionManager:
+    def __init__(self):
+        self.connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.connections.append(websocket)
+
+    async def broadcast(self, data: str):
+        for connection in self.connections:
+            await connection.send_text(data)
+
+
+connectionmanager = ConnectionManager()
