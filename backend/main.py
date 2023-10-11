@@ -13,7 +13,8 @@ app.include_router(staff.router,prefix="/api")
 @app.websocket("/api/chat")
 async def chat(websocket: WebSocket):
     manager = chat.manager
-    sender = websocket.cookies.get("X-Authorization")
+    # sender = websocket.cookies.get("X-Authorization")
+    sender = True
     if sender:
         await manager.connect(websocket, sender)
         response = {
