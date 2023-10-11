@@ -22,3 +22,13 @@ async def read_message(chat_id: str):
     cursor.execute("SELECT * FROM chats WHERE chat_id = %s", (chat_id,))
     results = cursor.fetchall()
     return results
+
+
+@router.get("/messages/{fk_chat_id}")
+async def read_message(fk_chat_id: str):
+    conn = connect.connect_to_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM messages WHERE fk_chat_id = %s", (fk_chat_id,))
+    results = cursor.fetchall()
+    return results
