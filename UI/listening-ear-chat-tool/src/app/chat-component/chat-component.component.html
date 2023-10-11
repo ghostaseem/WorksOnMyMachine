@@ -1,0 +1,18 @@
+<div class="sidebar">
+    <button (click)="toggleChatBox()">Chat 1</button>
+    <button (click)="toggleChatBox()">Chat 2</button>
+    <button (click)="toggleChatBox()">Chat 3</button>
+</div>
+
+
+    <div *ngIf="chatOpen" class="chat-box">
+        <div *ngFor="let sentMessage of sentMessages" class="message-bubble">{{ sentMessage }}</div>
+
+      <textarea [(ngModel)]="message" placeholder="Type your message..."></textarea>
+      <button (click)="sendMessage()">Send</button>
+</div>
+  
+  
+
+
+  
