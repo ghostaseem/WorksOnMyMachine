@@ -13,3 +13,4 @@ websockets==11.0.3
 uvicorn
 uvloop
 httptools
+psycopg2-binary

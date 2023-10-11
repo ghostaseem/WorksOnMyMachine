@@ -1,0 +1,43 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer class="side-drawer" mode="side" opened>
+
+                  <h3 class="list-items">New - Unassigned<button (click)="getMessages('New - Unassigned')" mat-icon-button><mat-icon [inline]="true">open_in_new</mat-icon></button></h3>
+                  <h3 class="list-items" >Assigned<button (click)=getDropdown() mat-icon-button *ngIf="!isTrue"><mat-icon [inline]="true" >arrow_downward</mat-icon></button></h3>
+                  <div *ngIf="isTrue">
+                    <div *ngFor="let s of assignedStatus"><h5 class="sublist-items">{{ s.name }} <button (click)=getMessages(s.name) mat-icon-button><mat-icon [inline]="true">open_in_new</mat-icon></button></h5></div>
+                </div>
+                  <h3 class="list-items">Closed<button (click)="getMessages('Closed')" mat-icon-button><mat-icon [inline]="true">open_in_new</mat-icon></button></h3>
+    
+    </mat-drawer>
+    <mat-drawer-content>
+        <div>
+        <div style="padding-left: 30px; margin-top: 20px;">
+        <div class="card" style="width: 35rem;">
+            <div class="card-body">
+              <h5 class="card-title">Title</h5>
+              <p class="card-text"> {{ messages }} </p>
+              <button (click)=getChat() >Full Chat</button>
+            </div>
+        </div>
+
+        <div class="card" style="width: 35rem;">
+            <div class="card-body">
+              <h5 class="card-title">Title</h5>
+              <p class="card-text"> {{ messages }} </p>
+              <button (click)=getChat() >Full Chat</button>
+            </div>
+        </div>
+        </div>
+
+        <div *ngIf="chat" style="padding-left: 620px;">
+        <div class="card" style="width: 35rem; height: 60rem; margin-top: -285px;">
+            <div class="card-body">
+              <h5 class="card-title">Chat</h5>
+              <p class="card-text"> The chat goes here! </p>
+              
+            </div>
+        </div>
+    </div>
+</div>
+    </mat-drawer-content>
+  </mat-drawer-container>
