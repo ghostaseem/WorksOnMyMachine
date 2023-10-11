@@ -1,4 +1,3 @@
 # Hello
 
-to run python backend use::
-uvicorn main:app --reload
+to run `bash startup.sh`
