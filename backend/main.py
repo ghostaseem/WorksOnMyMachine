@@ -1,12 +1,13 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 
-from backend.routers import chat, staff
+from backend.routers import chat, staff, messages
 
 app = FastAPI()
 
 #api calls
 app.include_router(staff.router,prefix="/api")
+app.include_router(messages.router,prefix="/api")
 
 #websocket for chat
 manager = chat.connectionmanager
