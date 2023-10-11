@@ -1,2 +1,5 @@
 <p>listening ear chat tool</p>
 <app-admin></app-admin>
+<button (click)="openChat()">{{text}}</button>
+<app-chat-component *ngIf="isChatOpen"></app-chat-component>
+
