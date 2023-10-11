@@ -1,9 +1,7 @@
-from fastapi import FastAPI
-from fastapi import (WebSocket, WebSocketDisconnect)
-from backend.routers import staff
-from backend.routers import chat
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 
+from backend.routers import chat, staff
 
 app = FastAPI()
 
