@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi import (WebSocket, WebSocketDisconnect)
 from backend.routers import staff
 from backend.routers import chat
+from fastapi.responses import HTMLResponse
 
 
 app = FastAPI()
@@ -10,23 +11,18 @@ app = FastAPI()
 app.include_router(staff.router,prefix="/api")
 
 #websocket for chat
-@app.websocket("/api/chat")
-async def chat(websocket: WebSocket):
-    manager = chat.manager
-    # sender = websocket.cookies.get("X-Authorization")
-    sender = True
-    if sender:
-        await manager.connect(websocket, sender)
-        response = {
-            "sender": sender,
-            "message": "got connected"
-        }
-        await manager.broadcast(response)
-        try:
-            while True:
-                data = await websocket.receive_json()
-                await manager.broadcast(data)
-        except WebSocketDisconnect:
-            manager.disconnect(websocket, sender)
-            response['message'] = "left"
-            await manager.broadcast(response)
+manager = chat.connectionmanager
+@app.websocket("/ws/{client_id}")
+async def websocket_endpoint(websocket: WebSocket, client_id: int):
+    print(client_id)
+    await manager.connect(websocket)
+    while True:
+        data = await websocket.receive_text()
+        await manager.broadcast(f"Client {client_id}: {data}")
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
