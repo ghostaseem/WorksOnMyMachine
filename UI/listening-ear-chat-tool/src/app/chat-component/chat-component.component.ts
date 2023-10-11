@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { webSocket } from 'rxjs/webSocket'
+import { WebSocketService } from '../services/websocket.service';
 
 @Component({
   selector: 'app-chat-component',
@@ -11,12 +12,12 @@ export class ChatComponentComponent {
   message: string = '';
   isChatOpen = false;
   sentMessages: string[] = [];
-  ws = new WebSocket("ws://localhost:8000/ws");
+  //ws: WebSocket;
 
-  constructor(){
-    this.ws.onmessage = (event) => {
-    this.sentMessages.push(event.data)
- };
+  constructor(private webSocketService: WebSocketService){
+    //this.ws = new WebSocket("ws://localhost:8000/ws");
+    this.sentMessages = webSocketService.messages; // Access the messages from the service
+
   }
    
 
@@ -48,15 +49,21 @@ export class ChatComponentComponent {
 toggleChatBox(): void {
   this.chatOpen = !this.chatOpen;
   console.log(this.chatOpen)
+  // this.ws.onmessage = (event) => {
+  //   console.log(event.data)
+  //   this.sentMessages.push(event.data)
+  // };
 }
 
 sendMessage(): void {
   // var input = this.message
   // this.ws.send(input)
+  
   if (this.message.trim() !== '') {
-    this.sentMessages.push(this.message); // Add the message to the sent messages
-
-    console.log('Message sent:', this.message);
+    //this.sentMessages.push(this.message); // Add the message to the sent messages
+    this.webSocketService.sendMessage(this.message);
+    this.sentMessages.push(this.message);
+    //console.log('Message sent:', this.message);
     this.message = '';
   }
 
