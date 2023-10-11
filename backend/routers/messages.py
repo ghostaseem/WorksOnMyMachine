@@ -5,26 +5,26 @@ from backend.db import connect
 router = APIRouter()
 
 
-@router.get("/messages")
+# @router.get("/messages")
+# async def read_message():
+#     conn = connect.connect_to_db()
+#     cursor = conn.cursor()
+
+#     cursor.execute("SELECT * FROM messages")
+#     results = cursor.fetchall()
+#     return results
+
+@router.get("/chats")
 async def read_message():
     conn = connect.connect_to_db()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM messages")
-    results = cursor.fetchall()
-    return results
-
-@router.get("/chats/{chat_id}")
-async def read_message(chat_id: str):
-    conn = connect.connect_to_db()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM chats WHERE chat_id = %s", (chat_id,))
+    cursor.execute("SELECT * FROM chats")
     results = cursor.fetchall()
     return results
 
 
-@router.get("/messages/{fk_chat_id}")
+@router.get("/chats/{fk_chat_id}")
 async def read_message(fk_chat_id: str):
     conn = connect.connect_to_db()
     cursor = conn.cursor()
