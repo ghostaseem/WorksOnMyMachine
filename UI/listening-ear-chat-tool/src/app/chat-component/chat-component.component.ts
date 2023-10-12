@@ -7,6 +7,7 @@ import { WebSocketService } from '../services/websocket.service';
   templateUrl: './chat-component.component.html',
   styleUrls: ['./chat-component.component.scss']
 })
+
 export class ChatComponentComponent {
   chatOpen: boolean = false;
   message: string = '';
