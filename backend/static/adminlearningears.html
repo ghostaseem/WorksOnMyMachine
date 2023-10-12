@@ -237,8 +237,10 @@
                                 </div>
                                 <div class="message my-message">"<<text-msg>>"</div>
                             </li>`
+                debugger;
                 var msgdate = new Date().toLocaleTimeString();
                 var msgtext = event.data
+                console.log(msgtext)
                 msg = msg.replace("<<msg-time>>", msgdate)
                 msg = msg.replace("<<text-msg>>", msgtext)
                 messages.innerHTML += msg;
