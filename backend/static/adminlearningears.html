@@ -18,14 +18,10 @@
 
     <div class="container-fluid" style="margin-left: 0px !important; margin-right: 0px !important;">
         <div class="row clearfix">
-            <div class="col-lg-3">
+            <div class="col-lg-3 swimlane" id="unassigned">
                 <div class="grid text-center">
                     <button type="button" class="btn btn-primary position-relative">
-                        Un-Assigned
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            2
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
+                        New
                     </button>
                 </div>
                 <div class="card chat-app">
@@ -37,36 +33,15 @@
                             <input type="text" class="form-control" placeholder="Search...">
                         </div>
                         <ul class="list-unstyled chat-list mt-2 mb-0">
-                            <li class="clearfix" class="btn btn-primary">
-                                <a onclick="return showModal()">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">New1</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="clearfix">
-                                <a onclick="return showModal()">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">New2</div>
-                                        <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                    </div>
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 swimlane" id="assigned">
                 <div class="grid text-center">
                     <button type="button" class="btn btn-primary position-relative">
-                        Triarged
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            2
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
+                        assigned
                     </button>
                 </div>
                 <div class="card chat-app">
@@ -78,32 +53,15 @@
                             <input type="text" class="form-control" placeholder="Search...">
                         </div>
                         <ul class="list-unstyled chat-list mt-2 mb-0">
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Adam Sanders</div>
-                                    <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                </div>
-                            </li>
-                            <li class="clearfix active">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Koel Addie</div>
-                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 swimlane" id="triaged">
                 <div class="grid text-center">
                     <button type="button" class="btn btn-primary position-relative">
-                        Assigned
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            4
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
+                        Triaged
                     </button>
                 </div>
                 <div class="card chat-app">
@@ -115,46 +73,15 @@
                             <input type="text" class="form-control" placeholder="Search...">
                         </div>
                         <ul class="list-unstyled chat-list mt-2 mb-0">
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Vincent Kelvin</div>
-                                    <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                </div>
-                            </li>
-                            <li class="clearfix active">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Aiden Paul</div>
-                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Mike Thomas</div>
-                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Christian Kelly</div>
-                                    <div class="status"> <i class="fa fa-circle offline"></i> left 10 hours ago </div>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 swimlane" id="completed">
                 <div class="grid text-center">
                     <button type="button" class="btn btn-primary position-relative">
                         Completed
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            4
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
                     </button>
                 </div>
                 <div class="card chat-app">
@@ -166,35 +93,7 @@
                             <input type="text" class="form-control" placeholder="Search...">
                         </div>
                         <ul class="list-unstyled chat-list mt-2 mb-0">
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Adam Porter</div>
-                                    <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                </div>
-                            </li>
-                            <li class="clearfix active">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Sonia Chavez</div>
-                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Monica Ward</div>
-                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                                <div class="about">
-                                    <div class="name">Dean Henry</div>
-                                    <div class="status"> <i class="fa fa-circle offline"></i> offline since Oct 28
-                                    </div>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -278,6 +177,33 @@
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/api/cases')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(caseData => {
+                    const caseElement = document.createElement('div');
+                    caseElement.classList.add('card');
+                    caseElement.innerHTML = `
+                        <li class="clearfix" class="btn btn-primary">
+                            <a onclick="return showModal()">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                <div class="about">
+                                    <div class="case-username">${caseData[1]}</div>
+                                    <div class="status case-id">${caseData[2]}</div>
+                                </div>
+                            </a>
+                        </li>
+                    `;
+                    const status = caseData[2].toLowerCase();
+                    const lane = document.getElementById(status).getElementsByClassName('list-unstyled chat-list mt-2 mb-0')[0];
+                    lane.appendChild(caseElement);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
