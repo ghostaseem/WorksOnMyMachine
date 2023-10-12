@@ -1,31 +1,324 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Chat</title>
-    </head>
-    <body>
-        <h1>WebSocket Chat</h1>
-        <form action="" onsubmit="sendMessage(event)">
-            <input type="text" id="messageText" autocomplete="off"/>
-            <button>Send</button>
-        </form>
-        <ul id='messages'>
-        </ul>
-        <script>
-            var ws = new WebSocket("ws://localhost:8000/ws");
-            ws.onmessage = function(event) {
-                var messages = document.getElementById('messages')
-                var message = document.createElement('li')
-                var content = document.createTextNode(event.data)
-                message.appendChild(content)
-                messages.appendChild(message)
-            };
-            function sendMessage(event) {
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Learning Ears</title>
+</head>
+
+<body>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <div class="container-fluid" style="margin-left: 0px !important; margin-right: 0px !important;">
+        <div class="row clearfix">
+            <div class="col-lg-3">
+                <div class="grid text-center">
+                    <button type="button" class="btn btn-primary position-relative">
+                        Un-Assigned
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            2
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="card chat-app">
+                    <div id="p1list" class="people-list">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                        <ul class="list-unstyled chat-list mt-2 mb-0">
+                            <li class="clearfix" class="btn btn-primary">
+                                <a onclick="return showModal()">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                    <div class="about">
+                                        <div class="name">New1</div>
+                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="clearfix">
+                                <a onclick="return showModal()">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                    <div class="about">
+                                        <div class="name">New2</div>
+                                        <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="grid text-center">
+                    <button type="button" class="btn btn-primary position-relative">
+                        Triarged
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            2
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="card chat-app">
+                    <div id="p1list" class="people-list">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                        <ul class="list-unstyled chat-list mt-2 mb-0">
+                            <li class="clearfix">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Adam Sanders</div>
+                                    <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                                </div>
+                            </li>
+                            <li class="clearfix active">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Koel Addie</div>
+                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="grid text-center">
+                    <button type="button" class="btn btn-primary position-relative">
+                        Assigned
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            4
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="card chat-app">
+                    <div id="p1list" class="people-list">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                        <ul class="list-unstyled chat-list mt-2 mb-0">
+                            <li class="clearfix">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Vincent Kelvin</div>
+                                    <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                                </div>
+                            </li>
+                            <li class="clearfix active">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Aiden Paul</div>
+                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Mike Thomas</div>
+                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Christian Kelly</div>
+                                    <div class="status"> <i class="fa fa-circle offline"></i> left 10 hours ago </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="grid text-center">
+                    <button type="button" class="btn btn-primary position-relative">
+                        Completed
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            4
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="card chat-app">
+                    <div id="p1list" class="people-list">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                        <ul class="list-unstyled chat-list mt-2 mb-0">
+                            <li class="clearfix">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Adam Porter</div>
+                                    <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
+                                </div>
+                            </li>
+                            <li class="clearfix active">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Sonia Chavez</div>
+                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Monica Ward</div>
+                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name">Dean Henry</div>
+                                    <div class="status"> <i class="fa fa-circle offline"></i> offline since Oct 28
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="chat">
+                            <div class="chat-header clearfix">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                                        </a>
+                                        <div class="chat-about">
+                                            <h6 class="m-b-0">Aiden Chavez</h6>
+                                            <small>Last seen: 2 hours ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 hidden-sm text-right">
+                                        <a href="javascript:void(0);" class="btn btn-outline-secondary"><i
+                                                class="fa fa-camera"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-primary"><i
+                                                class="fa fa-image"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-info"><i
+                                                class="fa fa-cogs"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-warning"><i
+                                                class="fa fa-question"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="chat">
+                            <div class="chat-history">
+                                <ul class="m-b-0" id="messages">
+                                    <li class="clearfix">
+                                        <div class="message-data text-right">
+                                            <span class="message-data-time">10:10 AM, Today</span>
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                        </div>
+                                        <div class="message other-message float-right"> Hi Aiden, how are you? How is
+                                            the
+                                            project coming along? </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="message-data">
+                                            <span class="message-data-time">10:12 AM, Today</span>
+                                        </div>
+                                        <div class="message my-message">Are we meeting today?</div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="message-data">
+                                            <span class="message-data-time">10:15 AM, Today</span>
+                                        </div>
+                                        <div class="message my-message">Project has been already finished and I have
+                                            results
+                                            to show you.</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="chat-message clearfix">
+                                <div class="input-group mb-0">
+                                    <div class="input-group-prepend" id="sendMessage">
+                                        <span class="input-group-text"><i class="fa fa-send"></i></span>
+                                    </div>
+                                    <input type="text" id="messageText" class="form-control"
+                                        placeholder="Enter text here...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script>
+        function showModal(e) {
+            $("#chatModal").modal("show");
+            var client_id = Date.now();
+            var ws = new WebSocket(`ws://localhost:8000/ws/${client_id}`);
+            ws.client_id=client_id
+            $("#sendMessage").click(function sendMessage(event) {
                 var input = document.getElementById("messageText")
                 ws.send(input.value)
                 input.value = ''
                 event.preventDefault()
+            });
+            ws.onmessage = function (event) {
+                var messages = document.querySelector('#messages')
+                msg = `<li class="clearfix">
+                                <div class="message-data">
+                                    <span class="message-data-time">"<<msg-time>>"</span>
+                                </div>
+                                <div class="message my-message">"<<text-msg>>"</div>
+                            </li>`
+                var msgdate = new Date().toLocaleTimeString();
+                var msgtext = event.data
+                msg = msg.replace("<<msg-time>>", msgdate)
+                msg = msg.replace("<<text-msg>>", msgtext)
+                messages.innerHTML += msg;
             }
-        </script>
-    </body>
+            return false
+        }
+    </script>
+</body>
+
 </html>
