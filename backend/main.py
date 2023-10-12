@@ -47,6 +47,12 @@ async def ge_therapistt():
         lines = " ".join(f.readlines())
     return HTMLResponse(content=lines,status_code=200)
 
+@app.get("/")
+async def get():
+    with open('backend/static/clientlearningears.html') as f:
+        lines = " ".join(f.readlines())
+    return HTMLResponse(content=lines,status_code=200)
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
@@ -71,3 +77,26 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client #{client_id} left the chat")
+
+
+
+
+from fastapi import FastAPI, HTTPException, Request
+
+
+# Custom exception handler for 403 and 404 errors
+@app.exception_handler(HTTPException)
+async def custom_exception_handler(request: Request, exc: HTTPException):
+    if exc.status_code == 403 or exc.status_code == 404:
+        return RedirectResponse(url="/client")
+    return exc
+
+# Define a route that raises a 403 error
+@app.get("/raise403")
+async def raise_403():
+    raise HTTPException(status_code=403, detail="Forbidden")
+
+# Define a route that raises a 404 error
+@app.get("/raise404")
+async def raise_404():
+    raise HTTPException(status_code=404, detail="Not Found")
