@@ -21,7 +21,7 @@
             <div class="col-lg-3 swimlane" id="assigned">
                 <div class="grid text-center">
                     <button type="button" class="btn btn-primary position-relative">
-                        assigned
+                        Assigned
                     </button>
                 </div>
                 <div class="card chat-app">
@@ -148,7 +148,7 @@
                       caseElement.classList.add('card');
                       caseElement.innerHTML = `
                           <li class="clearfix" class="btn btn-primary">
-                              <a onclick="return showModal()">
+                              <a onclick="return showModal(event)">
                                   <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                                   <div class="about">
                                       <div class="case-username">${caseData[1]}</div>
@@ -168,6 +168,21 @@
     });
 </script>
 
+<script>
+      function showHeader(case_id) {
+        fetch('/api/cases/')
+            .then(response => response.json())
+            .then(data => {
+                      const caseElement = document.createElement('div');
+                      caseElement.classList.add('');
+                      caseElement.innerHTML = `
+
+                      `;
+            })
+            .catch(error => console.error('Error:', error));
+    };
+</script>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -182,8 +197,7 @@
     <script>
         function showModal(e) {
             $("#chatModal").modal("show");
-            var client_id = Date.now();
-            var ws = new WebSocket(`ws://localhost:8000/ws/${client_id}`);
+            var ws = new WebSocket(`ws://localhost:8000/ws/1`);
             ws.client_id=client_id
             $("#sendMessage").click(function sendMessage(event) {
                 var input = document.getElementById("messageText")
