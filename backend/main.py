@@ -2,6 +2,8 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from pathlib import Path
 
 from backend.routers import chat, staff, messages
 
@@ -25,9 +27,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
+@app.get("/admin")
 async def get():
     with open('backend/static/adminlearningears.html') as f:
+        lines = " ".join(f.readlines())
+    return HTMLResponse(content=lines,status_code=200)
+
+
+@app.get("/client")
+async def get():
+    with open('backend/static/clientlearningears.html') as f:
+        lines = " ".join(f.readlines())
+    return HTMLResponse(content=lines,status_code=200)
+
+
+@app.get("/therapist")
+async def get():
+    with open('backend/static/therapistlearningears.html') as f:
         lines = " ".join(f.readlines())
     return HTMLResponse(content=lines,status_code=200)
 
@@ -50,3 +66,5 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client #{client_id} left the chat")
+
+
