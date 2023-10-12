@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="static/style.css">
-    <title>Listening Ears</title>
+    <title>Learning Ears</title>
 </head>
 
 <body>
@@ -18,14 +18,9 @@
 
     <div class="container-fluid" style="margin-left: 0px !important; margin-right: 0px !important;">
         <div class="row clearfix">
-            <div class="col-lg-3 swimlane" id="unassigned">
+            <div class="col-lg-3 swimlane" id="new">
                 <div class="grid text-center">
                     <button type="button" class="btn btn-primary position-relative">
-                        Unassigned
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            2
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
                         New
                     </button>
                 </div>
@@ -46,11 +41,6 @@
             <div class="col-lg-3 swimlane" id="assigned">
                 <div class="grid text-center">
                     <button type="button" class="btn btn-primary position-relative">
-                        Triaged
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            2
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
                         assigned
                     </button>
                 </div>
@@ -83,6 +73,7 @@
                             <input type="text" class="form-control" placeholder="Search...">
                         </div>
                         <ul class="list-unstyled chat-list mt-2 mb-0">
+
                         </ul>
                     </div>
                 </div>
@@ -206,6 +197,7 @@
                         </li>
                     `;
                     const status = caseData[2].toLowerCase();
+                    console.log(caseData);
                     const lane = document.getElementById(status).getElementsByClassName('list-unstyled chat-list mt-2 mb-0')[0];
                     lane.appendChild(caseElement);
                 });
@@ -230,7 +222,7 @@
             $("#chatModal").modal("show");
             var client_id = Date.now();
             var ws = new WebSocket(`ws://localhost:8000/ws/${client_id}`);
-            ws.client_id = client_id
+            ws.client_id=client_id
             $("#sendMessage").click(function sendMessage(event) {
                 var input = document.getElementById("messageText")
                 ws.send(input.value)
