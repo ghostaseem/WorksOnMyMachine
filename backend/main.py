@@ -1,9 +1,11 @@
+from pathlib import Path
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
-from backend.routers import chat, staff
+from backend.routers import case, chat, messages, staff
 
 app = FastAPI()
 
@@ -12,6 +14,8 @@ app.mount('/static', StaticFiles(directory='backend/static', html=True), name='s
 
 #api calls
 app.include_router(staff.router,prefix="/api")
+app.include_router(messages.router,prefix="/api")
+app.include_router(case.router,prefix="/api")
 
 #websocket for chat
 # Dictionary to store connected WebSocket clients
@@ -24,11 +28,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-async def get():
+@app.get("/admin")
+async def get_admin():
     with open('backend/static/adminlearningears.html') as f:
         lines = " ".join(f.readlines())
     return HTMLResponse(content=lines,status_code=200)
+
+@app.get("/client")
+async def get_client():
+    with open('backend/static/clientlearningears.html') as f:
+        lines = " ".join(f.readlines())
+    return HTMLResponse(content=lines,status_code=200)
+
+
+@app.get("/therapist")
+async def ge_therapistt():
+    with open('backend/static/therapist_view.html') as f:
+        lines = " ".join(f.readlines())
+    return HTMLResponse(content=lines,status_code=200)
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
 
 manager = chat.connectionmanager
 @app.websocket("/ws/{client_id}")
