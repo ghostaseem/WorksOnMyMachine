@@ -30,13 +30,6 @@ async def get():
         lines = " ".join(f.readlines())
     return HTMLResponse(content=lines,status_code=200)
 
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
-
 manager = chat.connectionmanager
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: int):
@@ -44,6 +37,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     try:
         while True:
             data = await websocket.receive_text()
+            
             # await manager.send_personal_message(f"{data}", websocket)
             await manager.broadcast(f"{data}")
     except WebSocketDisconnect:
