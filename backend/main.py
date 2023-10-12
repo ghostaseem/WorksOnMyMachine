@@ -58,12 +58,16 @@ manager = chat.connectionmanager
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: int):
     await manager.connect(websocket)
+    global msgs
+    msgs=[]
     try:
         while True:
             data = await websocket.receive_text()
-            
+            print(msgs)
+            print(data)
+            msgs.append(data)
             # await manager.send_personal_message(f"{data}", websocket)
-            await manager.broadcast(f"{data}")
+            await manager.broadcast(msgs)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client #{client_id} left the chat")
