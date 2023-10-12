@@ -18,50 +18,10 @@
 
     <div class="container-fluid" style="margin-left: 0px !important; margin-right: 0px !important;">
         <div class="row clearfix">
-            <div class="col-lg-3 swimlane" id="new">
-                <div class="grid text-center">
-                    <button type="button" class="btn btn-primary position-relative">
-                        New
-                    </button>
-                </div>
-                <div class="card chat-app">
-                    <div id="p1list" class="people-list">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Search...">
-                        </div>
-                        <ul class="list-unstyled chat-list mt-2 mb-0">
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <div class="col-lg-3 swimlane" id="assigned">
                 <div class="grid text-center">
                     <button type="button" class="btn btn-primary position-relative">
                         assigned
-                    </button>
-                </div>
-                <div class="card chat-app">
-                    <div id="p1list" class="people-list">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Search...">
-                        </div>
-                        <ul class="list-unstyled chat-list mt-2 mb-0">
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 swimlane" id="triaged">
-                <div class="grid text-center">
-                    <button type="button" class="btn btn-primary position-relative">
-                        Triaged
                     </button>
                 </div>
                 <div class="card chat-app">
@@ -183,23 +143,25 @@
             .then(response => response.json())
             .then(data => {
                 data.forEach(caseData => {
-                    const caseElement = document.createElement('div');
-                    caseElement.classList.add('card');
-                    caseElement.innerHTML = `
-                        <li class="clearfix" class="btn btn-primary">
-                            <a onclick="return showModal()">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                <div class="about">
-                                    <div class="case-username">${caseData[1]}</div>
-                                    <div class="status case-id">${caseData[2]}</div>
-                                </div>
-                            </a>
-                        </li>
-                    `;
-                    const status = caseData[2].toLowerCase();
-                    console.log(caseData);
-                    const lane = document.getElementById(status).getElementsByClassName('list-unstyled chat-list mt-2 mb-0')[0];
-                    lane.appendChild(caseElement);
+                      if (caseData[2] === 'assigned' | caseData[2] === 'completed') {
+                      const caseElement = document.createElement('div');
+                      caseElement.classList.add('card');
+                      caseElement.innerHTML = `
+                          <li class="clearfix" class="btn btn-primary">
+                              <a onclick="return showModal()">
+                                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                  <div class="about">
+                                      <div class="case-username">${caseData[1]}</div>
+                                      <div class="status case-id">${caseData[2]}</div>
+                                  </div>
+                              </a>
+                          </li>
+                      `;
+                      const status = caseData[2].toLowerCase();
+                      console.log(caseData);
+                      const lane = document.getElementById(status).getElementsByClassName('list-unstyled chat-list mt-2 mb-0')[0];
+                      lane.appendChild(caseElement);
+                      }
                 });
             })
             .catch(error => console.error('Error:', error));
