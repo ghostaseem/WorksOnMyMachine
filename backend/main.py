@@ -34,7 +34,6 @@ async def get_admin():
         lines = " ".join(f.readlines())
     return HTMLResponse(content=lines,status_code=200)
 
-
 @app.get("/client")
 async def get_client():
     with open('backend/static/clientlearningears.html') as f:
@@ -62,6 +61,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     try:
         while True:
             data = await websocket.receive_text()
+            
             # await manager.send_personal_message(f"{data}", websocket)
             await manager.broadcast(f"{data}")
     except WebSocketDisconnect:
